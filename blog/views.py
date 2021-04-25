@@ -6,7 +6,6 @@ from .forms import PostForm
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
-# Create your views here.
 
 def post_detail(request, pk) :
     post = get_object_or_404(Post, pk=pk)
@@ -19,7 +18,6 @@ def post_new(request) :
             post = form.save(commit=False)
             # 작성자 정보 저장
             post.author = request.user
-            post.published_date = timezone.now()
             # 각종 정보 저장
             post.save()
             # form 저장
@@ -36,7 +34,6 @@ def post_edit(request, pk) :
             post = form.save(commit=False)
             # 작성자 정보 저장
             post.author = request.user
-            post.published_date = timezone.now()
             # 각종 정보 저장
             post.save()
             # form 저장
